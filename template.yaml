@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: NextJs Application on AWS
+Globals:
+    Function:
+        Timeout: 3
+Resources:
+    NextJsServerFunction:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: server/
+            Handler: index.lambdaHandler
+            Runtime: nodejs12.x
+            Events:
+                NextJsServer:
+                    Type: Api
+                    Properties:
+                        Path: /
+                        Method: any
+
+Outputs:
+    NextJsServerApi:
+        Description: "API Gateway endpoint URL for Prod stage for NextJs server function"
+        Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/nextjsserver/"
+    NextJsServerFunction:
+        Description: "NextJs server Lambda Function ARN"
+        Value: !GetAtt NextJsServerFunction.Arn
+    NextJsServerFunctionIamRole:
+        Description: "Implicit IAM Role created for NextJs Server function"
+        Value: !GetAtt NextJsServerFunctionRole.Arn

@@ -52,8 +52,11 @@ npm init -y
 ```json
 {
 	// Other properties
-	"name": "nextjsserver"
-	// Other properties
+	"name": "nextjsserver",
+    // Other properties
+    "script": {
+-       "test": "echo \"Error: no test specified\" && exit 1",
+    }
 }
 ```
 
@@ -171,4 +174,101 @@ git init
 **/node_modules/
 .aws-sam/
 samconfig.toml
+```
+
+## Create NextJs Application
+
+Initialise NPM in `client` directory
+
+```bash
+npm init -y
+```
+
+Install dependencies
+
+```bash
+npm i next@9.5.4 react@16.13.1 react-dom@16.13.1
+```
+
+Install development dependencies
+
+```bash
+npm i -D rimraf
+```
+
+Modify `package.json` so that `main` properties point to `server.js` in `server` directory
+
+```diff
+// ./client/package.json
+{
+-   "main": "index.js"
++   "main": "../server/server.js
+    "script": {
+
+    }
+}
+```
+
+Create `pages` and `components` directories in `client` directory
+
+Create `_app.js` file in `pages` directory
+
+```js
+// ./client/pages/_app.js
+import React from "react";
+
+const App = ({ Component, pageProps }) => {
+	return <Component {...pageProps} />;
+};
+
+export default App;
+```
+
+Create `index.js` file in `pages` directory
+
+```js
+// ./client/pages/index.js
+
+import React from "react";
+
+const HomePage = () => {
+	return <div>Home Page</div>;
+};
+
+export default HomePage;
+```
+
+Create `about.js` file in `pages` directory
+
+```js
+import React from "react";
+
+const AboutPage = () => {
+	return <div>About Page</div>;
+};
+
+export default AboutPage;
+```
+
+Create `next.config.js` file in `client` directory
+
+```js
+module.exports = {
+	distDir: "dist",
+};
+```
+
+Test our setup
+
+```bash
+npm run dev
+```
+
+Use our custom express server
+
+Install dependencies in `server` directory
+
+```bash
+# ./server
+npm i next@9.5.4 react@16.13.1 react-dom@16.13.1
 ```

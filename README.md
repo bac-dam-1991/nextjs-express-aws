@@ -279,6 +279,18 @@ Move the `package.json` file from `./server` directory into the `./server/depend
 
 Delete the `node_modules` folder and the `package-lock.json` file in `./server` directory.
 
+Remove all other properties except for the "dependencies"
+
+```json
+// ./server/dependencies/nodejs/package.json
+{
+	"dependencies": {
+		"express": "^4.17.1",
+		"serverless-http": "^2.6.0"
+	}
+}
+```
+
 Change into the `./server/dependencies/nodejs` directory and install the packages.
 
 ```bash
@@ -330,4 +342,19 @@ Outputs:
         Description: "Implicit IAM Role created for NextJs Server function"
         Value: !GetAtt NextJsServerFunctionRole.Arn
 
+```
+
+Add a `package.json` in root directory to simplify deployment process with NPM scripts
+
+```bash
+npm init -y
+```
+
+```diff
+{
+    "script": {
++       "aws:package": "sam package --template-file template.yaml --s3-bucket <BUCKET_NAME> --output-template-file out.yaml --profile <YOUR_AWS_PROFILE>",
++	"aws:deploy": "sam deploy --template-file ./out.yaml --stack-name <STACK_NAME> --capabilities CAPABILITY_IAM --profile <YOUR_AWS_PROFILE>"
+    }
+}
 ```

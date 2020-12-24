@@ -8,7 +8,7 @@ Resources:
   NextJsServerFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://aws-sam-cli-managed-default-samclisourcebucket-8m18opawjauq/131145799a3a38208dd74c6d05840d5a
+      CodeUri: s3://aws-sam-cli-managed-default-samclisourcebucket-8m18opawjauq/f6978c9537e27874c7b85eb71c16b4e6
       Handler: index.lambdaHandler
       Runtime: nodejs12.x
       Layers:

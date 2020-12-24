@@ -10,19 +10,19 @@ const server = express();
 // async function init() {
 // 	await app.prepare();
 server.get("/", (req, res) => {
-	res.send("GET endpoint called.");
+	res.send(`GET endpoint called at ${Date.now()}`);
 });
 
 server.post("/", (req, res) => {
-	res.send("POST endpoint called.");
+	res.send(`POST endpoint called at ${Date.now()}`);
 });
 
 server.put("/", (req, res) => {
-	res.send("PUT endpoint called.");
+	res.send(`PUT endpoint called at ${Date.now()}`);
 });
 
 server.delete("/", (req, res) => {
-	res.send("DELETE endpoint called.");
+	res.send(`DELETE endpoint called at ${Date.now()}`);
 });
 
 // server.get("/", (req, res) => app.render(req, res, "/"));

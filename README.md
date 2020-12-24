@@ -264,11 +264,70 @@ Test our setup
 npm run dev
 ```
 
-Use our custom express server
+## Using our custom Express server
 
-Install dependencies in `server` directory
+Modify directory structure in `server` directory
 
 ```bash
 # ./server
-npm i next@9.5.4 react@16.13.1 react-dom@16.13.1
+mkdir dependencies
+cd dependencies
+mkdir nodejs
+```
+
+Move the `package.json` file from `./server` directory into the `./server/dependencies/nodejs` directory.
+
+Delete the `node_modules` folder and the `package-lock.json` file in `./server` directory.
+
+Change into the `./server/dependencies/nodejs` directory and install the packages.
+
+```bash
+npm i
+```
+
+Update the `template.yaml` file
+
+```diff
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: NextJs Application on AWS
+Globals:
+    Function:
+        Timeout: 3
+Resources:
+    NextJsServerFunction:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: server/
+            Handler: index.lambdaHandler
+            Runtime: nodejs12.x
++           Layers:
++               - !Ref NextJsServerDepLayer
+            Events:
+                NextJsServer:
+                    Type: Api
+                    Properties:
+                        Path: /
+                        Method: any
++   NextJsServerDepLayer:
++       Type: AWS::Serverless::LayerVersion
++       Properties:
++           LayerName: next-js-server-dependencies
++           Description: Dependencies for NextJs Server
++           ContentUri: server/dependencies/
++           CompatibleRunTimes:
++               - nodejs12.x
++           RetentionPolicy: Retain
+
+Outputs:
+    NextJsServerApi:
+        Description: "API Gateway endpoint URL for Prod stage for NextJs server function"
+        Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/nextjsserver/"
+    NextJsServerFunction:
+        Description: "NextJs server Lambda Function ARN"
+        Value: !GetAtt NextJsServerFunction.Arn
+    NextJsServerFunctionIamRole:
+        Description: "Implicit IAM Role created for NextJs Server function"
+        Value: !GetAtt NextJsServerFunctionRole.Arn
+
 ```

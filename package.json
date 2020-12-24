@@ -1,0 +1,20 @@
+{
+	"name": "v3",
+	"version": "1.0.0",
+	"description": "Serverless NextJs Application",
+	"main": "index.js",
+	"scripts": {
+		"aws:package": "sam package --template-file template.yaml --s3-bucket aws-sam-cli-managed-default-samclisourcebucket-8m18opawjauq --output-template-file out.yaml --profile bacdam1991",
+		"aws:deploy": "sam deploy --template-file ./out.yaml --stack-name nextjs-app --capabilities CAPABILITY_IAM --profile bacdam1991"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bac-dam-1991/nextjs-express-aws.git"
+	},
+	"author": "Bac Trach Dam",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/bac-dam-1991/nextjs-express-aws/issues"
+	},
+	"homepage": "https://github.com/bac-dam-1991/nextjs-express-aws#readme"
+}

@@ -358,3 +358,23 @@ npm init -y
     }
 }
 ```
+
+## Install NextJs Package for server
+
+Go into the `./server/dependencies/nodejs` and install NextJs
+
+```bash
+npm i next@9.5.4
+```
+
+NextJs uses babel. However, some files have last modified date before 1985 which AWS SAM cannot zip. On Windows, we need to recursively chang ethe last modified date to any date after 1985.
+
+Open File Explorer and go into the `./server/dependencies/nodejs/node_modules/@babel`. In the search bar, type in PowerShell to open PowerShell in the directory.
+
+```powershell
+$table = gci -recurse
+foreach($row in $table)
+{
+    $row.LastWriteTimeUtc = (New-Object datetime 2020, 01, 01)
+}
+```

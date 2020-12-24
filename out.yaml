@@ -8,7 +8,7 @@ Resources:
   NextJsServerFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://aws-sam-cli-managed-default-samclisourcebucket-8m18opawjauq/f6978c9537e27874c7b85eb71c16b4e6
+      CodeUri: s3://aws-sam-cli-managed-default-samclisourcebucket-8m18opawjauq/3c3c9a2139093c1fe04b1a4ac4501f89
       Handler: index.lambdaHandler
       Runtime: nodejs12.x
       Layers:
@@ -24,7 +24,7 @@ Resources:
     Properties:
       LayerName: next-js-server-dependencies
       Description: Dependencies for NextJs Server
-      ContentUri: s3://aws-sam-cli-managed-default-samclisourcebucket-8m18opawjauq/6e212047ea65a4b184623cb61a8ec847
+      ContentUri: s3://aws-sam-cli-managed-default-samclisourcebucket-8m18opawjauq/9627326886f204f28e229df84d7eceb1
       RetentionPolicy: Retain
 Outputs:
   NextJsServerApi:

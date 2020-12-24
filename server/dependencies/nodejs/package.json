@@ -1,6 +1,7 @@
 {
 	"dependencies": {
 		"express": "^4.17.1",
+		"next": "^9.5.4",
 		"serverless-http": "^2.6.0"
 	}
 }
